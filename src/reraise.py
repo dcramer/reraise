@@ -2,7 +2,7 @@ import inspect
 import sys
 
 
-def reraise_as(new_exception):
+def reraise_as(new_exception_or_type):
     """
     >>> try:
     >>>     do_something_crazy()
@@ -13,9 +13,13 @@ def reraise_as(new_exception):
 
     e_type, e_value, e_traceback = sys.exc_info()
 
-    if inspect.isclass(new_exception):
-        new_exception = new_exception()
+    if inspect.isclass(new_exception_or_type):
+        new_type = new_exception_or_type
+        new_exception = new_exception_or_type()
+    else:
+        new_type = type(new_exception_or_type)
+        new_exception = new_exception_or_type
 
     new_exception.__cause__ = e_value
 
-    raise type(new_exception), new_exception, e_traceback
+    raise new_type, new_exception, e_traceback
