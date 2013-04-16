@@ -16,7 +16,7 @@ class ReraiseAsTest(TestCase):
             else:
                 self.fail('NotImplementedError was not raised')
         except ValueError as exc:
-            assert exc.message == 'foo bar'
+            assert exc.message == ''
             assert exc.__cause__ == orig_exc
         else:
             self.fail('ValueError was not re-raised')
@@ -30,7 +30,7 @@ class ReraiseAsTest(TestCase):
             else:
                 self.fail('NotImplementedError was not raised')
         except ValueError as exc:
-            assert exc.message == ''
+            assert exc.message == 'biz baz'
             assert exc.__cause__ == orig_exc
         else:
             self.fail('ValueError was not re-raised')
