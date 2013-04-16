@@ -14,7 +14,7 @@ def reraise_as(new_exception):
     e_type, e_value, e_traceback = sys.exc_info()
 
     if inspect.isclass(new_exception):
-        new_exception = new_exception(e_value.message)
+        new_exception = new_exception()
 
     new_exception.__cause__ = e_value
 
